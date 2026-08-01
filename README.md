@@ -1,6 +1,6 @@
 # Tashkent Flood Risk & Climate Vulnerability Index
 
-```markdown 🔗 **Live demo:** https://tashkent-flood-risk-index.streamlit.app ```
+***Live demo:*** https://tashkent-flood-risk-index.streamlit.app
 
 A machine learning pipeline that combines satellite imagery, historical
 flood records, and climate data to predict flood-prone areas in
