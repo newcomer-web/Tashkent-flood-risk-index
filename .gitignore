@@ -1,0 +1,14 @@
+# Large raw data (fetch via gee_scripts/ instead of committing)
+data/outputs/*.tif
+data/processed/*.csv
+
+# Keep placeholder/summary files
+!data/processed/final_results_summary.json
+!data/raw/flood_event_log_template.csv
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.venv/
+venv/

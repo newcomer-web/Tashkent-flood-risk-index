@@ -1,0 +1,56 @@
+{
+  "study_area": "Tashkent, Uzbekistan",
+  "historical_events_considered": 5,
+  "historical_event_ids": [2426, 2629, 2632, 3132, 4242],
+  "train_event_id": 2629,
+  "test_event_id": 4242,
+  "spatial_resolution_m": 250,
+  "model": "Random Forest",
+  "n_trees": 200,
+  "features": ["NDVI", "NDBI", "NDWI", "Rainfall", "Elevation"],
+  "feature_sources": {
+    "NDVI": "Sentinel-2",
+    "NDBI": "Sentinel-2",
+    "NDWI": "Sentinel-2",
+    "Rainfall": "CHIRPS",
+    "Elevation": "SRTM",
+    "flood_labels": "Global Flood Database (GFD)"
+  },
+  "dataset": {
+    "total_samples": 56,
+    "flood_samples": 28,
+    "non_flood_samples": 28,
+    "training_samples": 28,
+    "testing_samples": 28
+  },
+  "validation": {
+    "method": "temporal_holdout",
+    "confusion_matrix": {
+      "true_negative": 12,
+      "false_positive": 2,
+      "false_negative": 2,
+      "true_positive": 12
+    },
+    "overall_accuracy": 0.8571428571,
+    "kappa": 0.7142857143,
+    "flood_precision": 0.8571428571,
+    "flood_recall": 0.8571428571,
+    "flood_f1": 0.8571428571,
+    "training_accuracy": 0.9642857143
+  },
+  "current_prediction": {
+    "period": "2025-01-01 to 2025-12-31",
+    "high_plus_very_high_risk_area_km2": 1372.9105460157946
+  },
+  "exports": {
+    "Tashkent_Current_Flood_Features": "GeoTIFF, 5 bands, 53s runtime",
+    "Tashkent_Current_Flood_Risk_Class": "GeoTIFF, 15m runtime",
+    "Tashkent_Current_Flood_Probability": "GeoTIFF, 14m runtime"
+  },
+  "known_limitations": [
+    "Small final sample size (56) limits generalization",
+    "Only 5 historical GFD events available in the study area, of which only 2 had usable flood pixels",
+    "Flood pixel availability was highly imbalanced across raw events before exact-pixel extraction",
+    "Training accuracy (96.4%) notably higher than test accuracy (85.7%), suggesting some overfitting to the training event"
+  ]
+}
