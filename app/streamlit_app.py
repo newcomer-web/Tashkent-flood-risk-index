@@ -107,35 +107,37 @@ with left:
                     data = src.read(1)
                     bounds = src.bounds
 
-            cmap = ListedColormap(RISK_COLORS)
+                        cmap = ListedColormap(RISK_COLORS)
             normed = np.clip(data, 0, 4) / 4.0
             rgba = (cmap(normed) * 255).astype(np.uint8)
-            rgba[..., 3] = np.where(np.isnan(data), 0, 200)  # transparency for nodata
+            rgba[..., 3] = np.where(np.isnan(data), 0, 200)
 
             carto_api_key = st.secrets["CARTO_API_KEY"]
-            m = folium.Map(
-               location=[41.2995, 69.2401],
-               zoom_start=10,
-               tiles=None
-)
 
-folium.TileLayer(
-    tiles=f"https://basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}{{r}}.png?key={carto_api_key}",
-    attr="© OpenStreetMap contributors © CARTO",
-    subdomains="abcd",
-    max_zoom=20,
-    name="CARTO Positron"
-).add_to(m)
+            m = folium.Map(
+                location=[41.2995, 69.2401],
+                zoom_start=10,
+                tiles=None
+            )
+
+            folium.TileLayer(
+                tiles=f"https://basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}{{r}}.png?key={carto_api_key}",
+                attr="© OpenStreetMap contributors © CARTO",
+                subdomains="abcd",
+                max_zoom=20,
+                name="CARTO Positron"
+            ).add_to(m)
+
             folium.raster_layers.ImageOverlay(
                 image=rgba,
                 bounds=[[bounds[1], bounds[0]], [bounds[3], bounds[2]]],
                 opacity=0.75,
                 name="Flood Risk",
             ).add_to(m)
+
             folium.LayerControl().add_to(m)
 
             map_state = st_folium(m, height=520, width=None)
-
             if map_state and map_state.get("last_clicked"):
                 lat = map_state["last_clicked"]["lat"]
                 lon = map_state["last_clicked"]["lng"]
