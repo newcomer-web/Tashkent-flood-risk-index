@@ -112,7 +112,20 @@ with left:
             rgba = (cmap(normed) * 255).astype(np.uint8)
             rgba[..., 3] = np.where(np.isnan(data), 0, 200)  # transparency for nodata
 
-            m = folium.Map(location=[41.2995, 69.2401], zoom_start=10, tiles="cartodbpositron")
+            carto_api_key = st.secrets["CARTO_API_KEY"]
+            m = folium.Map(
+               location=[41.2995, 69.2401],
+               zoom_start=10,
+               tiles=None
+)
+
+folium.TileLayer(
+    tiles=f"https://basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}{{r}}.png?key={carto_api_key}",
+    attr="© OpenStreetMap contributors © CARTO",
+    subdomains="abcd",
+    max_zoom=20,
+    name="CARTO Positron"
+).add_to(m)
             folium.raster_layers.ImageOverlay(
                 image=rgba,
                 bounds=[[bounds[1], bounds[0]], [bounds[3], bounds[2]]],
