@@ -107,7 +107,8 @@ with left:
                     data = src.read(1)
                     bounds = src.bounds
 
-                        cmap = ListedColormap(RISK_COLORS)
+                cmap = ListedColormap(RISK_COLORS)
+
             normed = np.clip(data, 0, 4) / 4.0
             rgba = (cmap(normed) * 255).astype(np.uint8)
             rgba[..., 3] = np.where(np.isnan(data), 0, 200)
